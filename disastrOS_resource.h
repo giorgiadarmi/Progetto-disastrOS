@@ -7,7 +7,7 @@ typedef struct {
   ListItem list;
   int id;
   int type;
-  ListHead descriptors;
+  ListHead descriptors_ptrs;
 } Resource;
 
 void Resource_init();

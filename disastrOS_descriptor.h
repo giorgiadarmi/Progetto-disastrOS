@@ -16,7 +16,6 @@ typedef struct Descriptor{
 
 typedef struct DescriptorPtr{
   ListItem list;
-  ListItem DescriptorPtr;
   Descriptor* descriptor;
 } DescriptorPtr;
 

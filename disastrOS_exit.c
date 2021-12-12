@@ -76,7 +76,7 @@ void internal_exit(){
       Descriptor* des=(Descriptor*) running->descriptors.first;
       List_detach(&running->descriptors, (ListItem*) des);
       Resource* res=des->resource;
-      List_detach(&res->descriptors, (ListItem*) des->ptr);
+      List_detach(&res->descriptors_ptrs, (ListItem*) des->ptr);
       DescriptorPtr_free(des->ptr);
       Descriptor_free(des);
     }

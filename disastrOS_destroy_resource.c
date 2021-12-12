@@ -17,7 +17,7 @@ void internal_destroyResource(){
   }
 
   // ensure the resource is not used by any process
-  if(res->descriptors.size){
+  if(res->descriptors_ptrs.size){
     running->syscall_retvalue=DSOS_ERESOURCEINUSE;
     return;
   }

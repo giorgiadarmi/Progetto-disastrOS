@@ -34,7 +34,7 @@ void internal_openResource(){
      return;
   }
   
-  if (open_mode&DSOS_EXCL && res->descriptors.size){
+  if (open_mode&DSOS_EXCL && res->descriptors_ptrs.size){
      running->syscall_retvalue=DSOS_ERESOURCENOEXCL;
      return;
   }
@@ -54,7 +54,7 @@ void internal_openResource(){
   //6 add to the resource, in the descriptor ptr list, a pointer to the newly
   //  created descriptor
   des->ptr=desptr;
-  List_insert(&res->descriptors, res->descriptors.last, (ListItem*) desptr);
+  List_insert(&res->descriptors_ptrs, res->descriptors_ptrs.last, (ListItem*) desptr);
 
   // return the FD of the new descriptor to the process
   running->syscall_retvalue = des->fd;

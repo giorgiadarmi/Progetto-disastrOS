@@ -25,7 +25,7 @@ void internal_closeResource(){
   Resource* res=des->resource;
 
   // we remove the descriptor pointer from the resource list
-  DescriptorPtr* desptr=(DescriptorPtr*) List_detach(&res->descriptors, (ListItem*)(des->ptr));
+  DescriptorPtr* desptr=(DescriptorPtr*) List_detach(&res->descriptors_ptrs, (ListItem*)(des->ptr));
   assert(desptr);
   Descriptor_free(des);
   DescriptorPtr_free(desptr);
