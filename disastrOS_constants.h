@@ -5,6 +5,8 @@
 #define MAX_NUM_RESOURCES_PER_PROCESS 32
 #define MAX_NUM_DESCRIPTORS_PER_PROCESS 32
 
+//costanti messaggi
+
 #define STACK_SIZE        16384
 // signals
 #define MAX_SIGNALS 32
