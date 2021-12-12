@@ -286,7 +286,7 @@ int disastrOS_destroyResource(int resource_id) {
   return disastrOS_syscall(DSOS_CALL_DESTROY_RESOURCE, resource_id);
 }
 
-
+//implementazioni di tutte le int disastrOS
 
 void disastrOS_printStatus(){
   printf("****************** DisastrOS ******************\n");
