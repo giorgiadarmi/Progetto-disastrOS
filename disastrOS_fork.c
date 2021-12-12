@@ -12,6 +12,7 @@ void internal_fork() {
     return;
   } 
 
+  
   new_pcb->status=Ready;
 
   // sets the parent of the newly created process to the running process
