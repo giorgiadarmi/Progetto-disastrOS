@@ -19,6 +19,8 @@ typedef struct DescriptorPtr{
   Descriptor* descriptor;
 } DescriptorPtr;
 
+//agg 
+
 void Descriptor_init();
 Descriptor* Descriptor_alloc(int fd, Resource* res, PCB* pcb);
 int Descriptor_free(Descriptor* d);
