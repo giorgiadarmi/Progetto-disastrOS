@@ -21,11 +21,12 @@ void Resource_init(){
     assert(! result);
 }
 
-Resource* Resource_alloc(int id, int type){
+Resource* Resource_alloc(const char *name, int id, int type){
   Resource* r=(Resource*) PoolAllocator_getBlock(&_resources_allocator);
   if (!r)
     return 0;
   r->list.prev=r->list.next=0;
+  r->name=name;
   r->id=id;
   r->type=type;
   List_init(&r->descriptors_ptrs);
