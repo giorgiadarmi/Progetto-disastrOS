@@ -4,7 +4,6 @@
 #include "pool_allocator.h"
 #include "disastrOS_pcb.h"
 
-
 #define TIMER_ITEM_SIZE sizeof(TimerItem)
 #define TIMER_ITEM_MEMSIZE (sizeof(TimerItem)+sizeof(int))
 #define TIMER_ITEM_BUFFER_SIZE MAX_NUM_PROCESSES*TIMER_ITEM_MEMSIZE
