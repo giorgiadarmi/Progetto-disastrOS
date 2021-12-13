@@ -4,7 +4,7 @@
 #include "disastrOS_constants.h"
 
 #define DSOS_STANDARD_RESOURCE  0 //risorsa stardand
-#define DSOS_MSG_QUEUE_RESOURCE 1 //la risorsa è un messaggio di coda
+#define DSOS_MSG_QUEUE_RESOURCE 1 //la risorsa è un messaggio di coda TIPO
 
 typedef struct {
   ListItem list;
