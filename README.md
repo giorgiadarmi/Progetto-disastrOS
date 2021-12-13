@@ -13,9 +13,12 @@ Project Operative System
 
 ## DA FARE
 **MODIFICHE FILE**
+-<del>disastrOS_resource.c</del>
+-<del>disastrOS_resource.h</del>
+
 **AGGIUNTA FILE**
-<del> - msgqueue.c -- allocazione strutture dati per coda di messaggi </del>
-<del> - msgqueue.h -- allocazione strutture dati per coda di messaggi </del>
+- <del>msgqueue.c -- allocazione strutture dati per coda di messaggi</del>
+- <del>msgqueue.h -- allocazione strutture dati per coda di messaggi</del>
 - mq_create() -- crea una subqueue e coda stessa
 - mq_open() -- Si connette e facoltativamente crea una coda di messaggi denominata.
 - mq_close() -- Termina la connessione a una coda di messaggi aperta.
