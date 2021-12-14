@@ -23,8 +23,8 @@ Project Operative System
 
 #### MODIFICHE FILE
 - <del>disastrOS_descriptor.c e disastrOS_descriptor.h meccanismi di attesa findbyPCB</del>
-- disastrOS_constants.h -- aggiungo costanti
-- disastrOS_syscall.h -- dichiaro implementazione syscall
+- <del>disastrOS_constants.h -- aggiungo costanti</del>
+- <del>disastrOS_syscall.h -- dichiaro implementazione syscall</del>
 
 #### AGGIUNTA FILE
 - mq_create() -- crea una subqueue e coda stessa
