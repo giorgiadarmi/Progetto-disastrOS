@@ -11,11 +11,13 @@
 #include "disastrOS_timer.h"
 #include "disastrOS_resource.h"
 #include "disastrOS_descriptor.h"
+#include "disastrOS_msgqueue.h"
 
 FILE* log_file=NULL;
 PCB* init_pcb;
 PCB* running;
 int last_pid;
+int last_rid;
 ListHead ready_list;
 ListHead waiting_list;
 ListHead zombie_list;
@@ -23,6 +25,9 @@ ListHead timer_list;
 
 // a resource can be a device, a file or an ipc thing
 ListHead resources_list;
+
+//dichirazione lista message queue
+ListHead msg_queues_list; 
 
 SyscallFunctionType syscall_vector[DSOS_MAX_SYSCALLS];
 int syscall_numarg[DSOS_MAX_SYSCALLS];
@@ -126,6 +131,7 @@ void disastrOS_trap(){
 	    running->pid,
 	    "SYSCALL_OUT",
 	    syscall_num);
+	    
   if (running)
     setcontext(&running->cpu_state);
   else {
@@ -137,10 +143,19 @@ void disastrOS_trap(){
 void disastrOS_start(void (*f)(void*), void* f_args, char* logfile){  
   /* INITIALIZATION OF SYSTEM STRUCTURES*/
   disastrOS_debug("initializing system structures\n");
+  printf("Inizializzazione delle strutture di sistema\n");
   PCB_init();
   Timer_init();
   Resource_init();
   Descriptor_init();
+  
+  //aggiungiamo le strutture dati per la gestione delle message queue
+  Text_init();
+  Message_init();
+  Subqueue_init();
+  MsgQueue_init();
+  MsgQueuePtr_init();
+  
   init_pcb=0;
 
   // populate the vector of syscalls and number of arguments for each syscall
@@ -177,6 +192,26 @@ void disastrOS_start(void (*f)(void*), void* f_args, char* logfile){
   syscall_vector[DSOS_CALL_SHUTDOWN]      = internal_shutdown;
   syscall_numarg[DSOS_CALL_SHUTDOWN]      = 0;
 
+//aggiungo l'installazione delle syscall introdotte con vettore e numero di argomenti
+
+  syscall_vector[DSOS_CALL_MQ_CREATE]      = internal_msgQueueCreate;
+  syscall_numarg[DSOS_CALL_MQ_CREATE]      = 1;
+
+  syscall_vector[DSOS_CALL_MQ_OPEN]      = internal_msgQueueOpen;
+  syscall_numarg[DSOS_CALL_MQ_OPEN]      = 1;
+
+  syscall_vector[DSOS_CALL_MQ_CLOSE]     = internal_msgQueueClose;
+  syscall_numarg[DSOS_CALL_MQ_CLOSE]     = 1;
+
+  syscall_vector[DSOS_CALL_MQ_UNLINK]     = internal_msgQueueUnlink;
+  syscall_numarg[DSOS_CALL_MQ_UNLINK]     = 1;
+
+  syscall_vector[DSOS_CALL_MQ_READ]     = internal_msgQueueRead;
+  syscall_numarg[DSOS_CALL_MQ_READ]     = 3;
+
+  syscall_vector[DSOS_CALL_MQ_WRITE]     = internal_msgQueueWrite;
+  syscall_numarg[DSOS_CALL_MQ_WRITE]     = 4;
+
   // setup the scheduling lists
   running=0;
   List_init(&ready_list);
@@ -185,6 +220,9 @@ void disastrOS_start(void (*f)(void*), void* f_args, char* logfile){
   List_init(&resources_list);
   List_init(&timer_list);
 
+  //inizializziamo la listHead msg_queues_list
+  List_init(&msg_queues_list);
+  
 
   /* INITIALIZATION OF SYSCALL AND INTERRUPT INFRASTRUCTIRE*/
   disastrOS_debug("setting entry point for system shudtown... ");
@@ -286,7 +324,39 @@ int disastrOS_destroyResource(int resource_id) {
   return disastrOS_syscall(DSOS_CALL_DESTROY_RESOURCE, resource_id);
 }
 
-//implementazioni di tutte le int disastrOS
+//implementazione delle nuove syscall appena inserite
+
+//crea la coda di messaggi con il nome preso in input
+int disastrOS_msgQueueCreate(const char *name) {
+    return disastrOS_syscall(DSOS_CALL_MQ_CREATE, name);
+}
+
+//apre una coda di messaggi con il nome preso in input
+int disastrOS_msgQueueOpen(const char *name) {
+    return disastrOS_syscall(DSOS_CALL_MQ_OPEN, name);
+}
+
+//chiude il descrittore mq_des corrispondente alla coda di messaggi 
+int disastrOS_msgQueueClose(int mqdes) {
+    return disastrOS_syscall(DSOS_CALL_MQ_CLOSE, mqdes);
+}
+
+//rimuove la coda con il nome preso in input, la coda verrà rimossa/distrutta una volta che tutti i processi che l’hanno aperta la chiudono, chiudendo i propri descrittori mqdes associati alla coda
+int disastrOS_msgQueueUnlink(const char *name) {
+    return disastrOS_syscall(DSOS_CALL_MQ_UNLINK, name);
+}
+
+//rimuove il messaggio con priorità più alta (più vecchio) dalla coda a cui si riferisce mqdes e lo inserisce nel buffer puntato da msg_ptr di cui specifichiamo la dimensione msg_len
+int disastrOS_msgQueueRead(int mqdes, char *msg_ptr, unsigned msg_len) {
+    return disastrOS_syscall(DSOS_CALL_MQ_READ, mqdes, msg_ptr, msg_len);
+}
+
+//aggiunge il messaggio puntato da msg_ptr alla coda a cui si riferisce mqdes e si specificano dimensione msg_len e priorità del messaggio priority
+int disastrOS_msgQueueWrite(int mqdes, const char *msg_ptr, unsigned msg_len, unsigned int priority) {
+    return disastrOS_syscall(DSOS_CALL_MQ_WRITE, mqdes, msg_ptr, msg_len, priority);
+}
+
+
 
 void disastrOS_printStatus(){
   printf("****************** DisastrOS ******************\n");
