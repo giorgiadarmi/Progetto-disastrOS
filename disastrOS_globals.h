@@ -9,6 +9,7 @@
 extern PCB* init_pcb; // pcb of the init process
 extern PCB* running;  // pcb of the currently running process
 extern int last_pid;  // last pid to be generates
+extern int last_rid; //last rid to be generates 
 extern ListHead ready_list; // list of the ready processes
 extern ListHead waiting_list; // list of the waiting processes
 extern ListHead zombie_list;  // zombies

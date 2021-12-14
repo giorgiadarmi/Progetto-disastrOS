@@ -55,6 +55,14 @@
 #define DSOS_CALL_DESTROY_RESOURCE 9
 #define DSOS_CALL_SHUTDOWN  10
 
+//numeri delle syscall aggiunte
+#define DSOS_CALL_MQ_CREATE  11
+#define DSOS_CALL_MQ_OPEN    12
+#define DSOS_CALL_MQ_CLOSE   13
+#define DSOS_CALL_MQ_UNLINK  14
+#define DSOS_CALL_MQ_READ    15
+#define DSOS_CALL_MQ_WRITE   16
+
 //resources
 #define DSOS_CREATE 0x1
 #define DSOS_READ 0x2
