@@ -32,6 +32,15 @@
 #define DSOS_ERESOURCECLOSE -12
 #define DSOS_ERESOURCEINUSE -13
 
+//errori relativi alle syscall aggiunte
+#define DSOS_EMQ_NOFD    -14
+#define DSOS_EMQ_NOEXIST -15
+#define DSOS_EMQ_CREATE -16
+#define DSOS_EMQ_READ   -17
+#define DSOS_EMQ_WRITE  -18
+#define DSOS_EMQ_CLOSE  -19
+#define DSOS_EMQ_UNLINK -20
+
 // syscall numbers
 #define DSOS_MAX_SYSCALLS 32
 #define DSOS_MAX_SYSCALLS_ARGS 8
