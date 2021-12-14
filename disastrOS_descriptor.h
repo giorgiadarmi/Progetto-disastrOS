@@ -19,7 +19,9 @@ typedef struct DescriptorPtr{
   Descriptor* descriptor;
 } DescriptorPtr;
 
-//agg 
+//aggiungo strutture per code
+typedef ListHead DescriptorList;
+typedef ListHead DescriptorPtrList;
 
 void Descriptor_init();
 Descriptor* Descriptor_alloc(int fd, Resource* res, PCB* pcb);
@@ -30,3 +32,6 @@ void DescriptorList_print(ListHead* l);
 DescriptorPtr* DescriptorPtr_alloc(Descriptor* descriptor);
 int DescriptorPtr_free(DescriptorPtr* d);
 void DescriptorPtrList_print(ListHead* l);
+
+//ricerca attraverso PCB
+DescriptorPtr * DescriptorPtrList_findByPCB(DescriptorPtrList *listPtr, PCB *pcbPtr);

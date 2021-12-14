@@ -35,8 +35,6 @@ void Descriptor_init(){
   assert(! result);
 }
 
-// mod
-
 Descriptor* Descriptor_alloc(int fd, Resource* res, PCB* pcb) {
   Descriptor* d=(Descriptor*)PoolAllocator_getBlock(&_descriptor_allocator);
   if (!d)
@@ -98,12 +96,21 @@ void DescriptorPtrList_print(ListHead* l){
   while(aux){
     DescriptorPtr* d=(DescriptorPtr*)aux;
     printf("(pid: %d, fd: %d, rid:%d)",
-	   d->descriptor->fd,
 	   d->descriptor->pcb->pid,
+	   d->descriptor->fd,
 	   d->descriptor->resource->id);
     if(aux->next)
       printf(", ");
     aux=aux->next;
   }
   printf("]");
+}
+
+//aggiunta dichirazione funzione findbyPCB
+DescriptorPtr * DescriptorPtrList_findByPCB(DescriptorPtrList *listPtr, PCB *pcbPtr) {
+    for (ListItem *currNodePtr = listPtr->first; currNodePtr != NULL; currNodePtr = currNodePtr->next) {
+        if (pcbPtr == ((DescriptorPtr*) currNodePtr)->descriptor->pcb)
+            return (DescriptorPtr*) currNodePtr;
+    }
+    return NULL;
 }
