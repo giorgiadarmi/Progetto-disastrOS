@@ -232,11 +232,10 @@ MsgQueue* MsgQueue_alloc(const char *name, int id, PCB *pcb) {
     MsgQueue *q = (MsgQueue*)PoolAllocator_getBlock(&_msg_queues_allocator);
     q->resource.list.prev = q->resource.list.next = NULL;
     q->resource.name = name;
-    q->resource.id = id;
+    q->resource.rid = id;
     q->resource.type = DSOS_MSG_QUEUE_RESOURCE;
 
     List_init(&(q->resource.descriptors_ptrs));
-    List_init(&q->waiting_descriptors);
 
     for (unsigned priority = 0; priority < MAX_NUM_PRIORITIES; ++priority) {
         q->subqueues[priority] = Subqueue_alloc(priority);
@@ -278,9 +277,6 @@ void MsgQueue_print(const MsgQueue *q) {
         //printf("\n\t]");
     }
 
-    printf("\n\n\tAttesi descrittori: ");
-    DescriptorPtrList_print((ListHead *) &(q->waiting_descriptors));
-    printf("\n\t]");
 
 }
 

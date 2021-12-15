@@ -9,14 +9,14 @@
 typedef struct {
   ListItem list;
   const char *name;
-  int id;
+  int rid;
   int type;
   ListHead descriptors_ptrs;
 } Resource;
 
 void Resource_init();
 
-Resource* Resource_all(const char *name, int id, int type);
+Resource* Resource_all(const char *name, int rid, int type);
 int Resource_free(Resource* resource);
 
 typedef ListHead ResourceList;
