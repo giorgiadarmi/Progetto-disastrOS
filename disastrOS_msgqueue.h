@@ -50,7 +50,6 @@ typedef struct MsgQueue {
     Subqueue *subqueues[MAX_NUM_PRIORITIES];         //definizione numero di processi prioritari
     PCB* pcb;                                       // identifica processo running che alloca msg queue
     int size;                                       // numero di messaggi che compongono la coda
-    ListHead waiting_descriptors;
 } MsgQueue;
 
 void MsgQueue_init();  //inizializzazione coda di messaggi 
