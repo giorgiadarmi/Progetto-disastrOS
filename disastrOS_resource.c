@@ -27,7 +27,7 @@ Resource* Resource_alloc(const char *name, int id, int type){
     return 0;
   r->list.prev=r->list.next=0;
   r->name=name;
-  r->id=id;
+  r->rid=rid;
   r->type=type;
   List_init(&r->descriptors_ptrs);
   return r;
@@ -43,7 +43,7 @@ Resource* ResourceList_byId(ResourceList* l, int id) {
   ListItem* aux=l->first;
   while(aux){
     Resource* r=(Resource*)aux;
-    if (r->id==id)
+    if (r->rid==id)
       return r;
     aux=aux->next;
   }
