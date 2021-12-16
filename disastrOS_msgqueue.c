@@ -266,7 +266,7 @@ void MsgQueue_print(const MsgQueue *q) {
     if (q == NULL)
         printf("[NULL]");
     else {
-        printf("[name: '%s', \n\t resource id: %d, \n\t descriptors: ", q->resource.name, q->resource.id);
+        printf("[name: '%s', \n\t resource id: %d, \n\t descriptors: ", q->resource.name, q->resource.rid);
         DescriptorPtrList_print((ListHead *) &(q->resource.descriptors_ptrs));
         printf(",  \n\t subqueues: ");
         for (unsigned priority = 0; priority < MAX_NUM_PRIORITIES; ++priority) {

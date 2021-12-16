@@ -21,7 +21,7 @@ void Resource_init(){
     assert(! result);
 }
 
-Resource* Resource_alloc(const char *name, int id, int type){
+Resource* Resource_alloc(const char *name, int rid, int type){
   Resource* r=(Resource*) PoolAllocator_getBlock(&_resources_allocator);
   if (!r)
     return 0;
