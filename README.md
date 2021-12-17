@@ -27,7 +27,7 @@ Project Operative System
 - <del>disastrOS_syscall.h -- dichiaro implementazione syscall</del>
 
 #### AGGIUNTA FILE
-- mq_create() -- crea una subqueue e coda stessa
+- <del>mq_create() -- crea una subqueue e coda stessa</del>
 - mq_open() -- Si connette e facoltativamente crea una coda di messaggi denominata.
 - mq_close() -- Termina la connessione a una coda di messaggi aperta.
 - mq_unlink() -- Termina la connessione a una coda di messaggi aperta e provoca la rimozione della coda quando l'ultimo processo la chiude.
