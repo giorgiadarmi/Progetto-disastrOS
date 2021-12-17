@@ -1,15 +1,13 @@
 # project DisastrOS
+Progetto Sistemi Operativi (2020/2021)
 
-Project Operative System
-
-## Developed by
+## Sviluppato da
 - **Giorgia D'Armiento**
 - **1711864**
 
 ## Message queues in disastrOS 
-- Implement an IPC system based on message queues in disastrOS
-- to allow (blocking) communication between processes;
-- the starting point is the version of disastrOS presented in class.
+- Implementazione di un sistema IPC basato sulle code di messaggi disastrOS per consentire e bloccare la comunicazione tra processi.
+- Il punto di partenza è la lezione presentata a lezione [qui](https://gitlab.com/grisetti/sistemi_operativi_2019_20/-/tree/master/source/08_disastrOS/disastrOS_04_resources) presente.
 
 ## DA FARE
 
@@ -27,7 +25,7 @@ Project Operative System
 - <del>disastrOS_syscall.h -- dichiaro implementazione syscall</del>
 
 #### AGGIUNTA FILE
-- mq_create() -- crea una subqueue e coda stessa
+- <del>mq_create() -- crea una subqueue e coda stessa</del>
 - mq_open() -- Si connette e facoltativamente crea una coda di messaggi denominata.
 - mq_close() -- Termina la connessione a una coda di messaggi aperta.
 - mq_unlink() -- Termina la connessione a una coda di messaggi aperta e provoca la rimozione della coda quando l'ultimo processo la chiude.
