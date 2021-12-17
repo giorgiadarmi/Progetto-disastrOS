@@ -35,7 +35,7 @@ Project Operative System
 - mq_receive() -- Riceve (rimuove) il messaggio più vecchio e con la priorità più alta dalla coda.
 
 #### MODIFICHE FILE
-- disastrOS.c per l'installazione nuove syscall
-- disastrOS.h dichiarazione nuove syscall
-- disastrOS_test -- modofico test da fare
+- <del>disastrOS.c per l'installazione nuove syscall</del>
+- <del>disastrOS.h dichiarazione nuove syscall</del>
+- <del>disastrOS_test -- modofico test da fare</del>
 
