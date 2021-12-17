@@ -368,6 +368,11 @@ void disastrOS_printStatus(){
   TimerList_print(&timer_list);
   printf("\nResources: ");
   ResourceList_print(&resources_list);
+  
+//printf relativa alla coda di messaggi  
+  printf("\nMessage Queues: ");
+  MsgQueuePtrList_print(&msg_queues_list);
+  
   printf("\nReady: ");
   PCBList_print(&ready_list);
   printf("\nWaiting: ");
