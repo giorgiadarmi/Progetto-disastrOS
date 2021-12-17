@@ -1,15 +1,13 @@
 # project DisastrOS
+Progetto Sistemi Operativi (2020/2021)
 
-Project Operative System
-
-## Developed by
+## Sviluppato da
 - **Giorgia D'Armiento**
 - **1711864**
 
 ## Message queues in disastrOS 
-- Implement an IPC system based on message queues in disastrOS
-- to allow (blocking) communication between processes;
-- the starting point is the version of disastrOS presented in class.
+- Implementazione di un sistema IPC basato sulle code di messaggi disastrOS per consentire e bloccare la comunicazione tra processi.
+- Il punto di partenza è la lezione presentata a lezione seguente (https://gitlab.com/grisetti/sistemi_operativi_2019_20/-/tree/master/source/08_disastrOS/disastrOS_04_resources). 
 
 ## DA FARE
 
