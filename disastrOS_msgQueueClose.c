@@ -37,7 +37,7 @@ void internal_msgQueueClose() {+
         return;
     }
     if (Descriptor_free(desc) != 0) {
-        printf("[ERRORE] FFallimento nella deallocazione del descrittore con fd %d!\n", fd);
+        printf("[ERRORE] Fallimento nella deallocazione del descrittore con fd %d!\n", fd);
         running->syscall_retvalue = DSOS_EMQ_CLOSE;
         return;
     }
