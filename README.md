@@ -27,7 +27,7 @@ Progetto Sistemi Operativi (2020/2021)
 #### AGGIUNTA FILE
 - <del>mq_create() -- crea una subqueue e coda stessa</del>
 - <del>mq_open() -- Si connette e facoltativamente crea una coda di messaggi denominata.</del>
-- mq_close() -- Termina la connessione a una coda di messaggi aperta.
+- <del>mq_close() -- Termina la connessione a una coda di messaggi aperta.</del>
 - mq_unlink() -- Termina la connessione a una coda di messaggi aperta e provoca la rimozione della coda quando l'ultimo processo la chiude.
 - mq_send() -- Mette un messaggio nella coda.
 - mq_receive() -- Riceve (rimuove) il messaggio più vecchio e con la priorità più alta dalla coda.
