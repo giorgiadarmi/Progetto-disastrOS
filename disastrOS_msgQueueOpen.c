@@ -22,5 +22,32 @@ void internal_msgQueueOpen() {
         running->syscall_retvalue = DSOS_EMQ_NOEXIST;
         return;
     }
+    
+    //creiamo descrittore per la risorsa allocata in questo processo e lo allochiamo
+    Descriptor *desc = Descriptor_alloc(running->last_fd, (Resource*) mq, running);
+    printf("[msgQueueOpen --> DESCRITTORE ALLOCATO]");
+    //errore in caso di file descriptor non valido
+    if (!desc) {
+        running->syscall_retvalue = DSOS_EMQ_NOFD;
+        return;
+    }
+
+    running->last_fd++; //incrementiamo il valore dell'ultimo file descriptor
+    //allochiamo il puntatore al descrittore 
+    DescriptorPtr *descPtr = DescriptorPtr_alloc(desc);
+        printf("[msgQueueOpen -->  PUNTATORE AL DESCRITTORE ALLOCATO]");
+    //aggiungere alla risorsa, nella lista dei descrittori, il descrittore appena creato
+    List_insert(&running->descriptors, running->descriptors.last, (ListItem *) desc);
+
+    // aggiungere alla risorsa, nella lista dei descrittori ptr, un puntatore al descrittore appena creato
+    desc->ptr = descPtr;
+    List_insert(&(mq->resource.descriptors_ptrs), mq->resource.descriptors_ptrs.last, (ListItem *) descPtr);
+
+    disastrOS_debug("Message queue con nome '%s' aperto!\n", name);
+
+    //ritorna il file descriptor associato al descrittore del processo
+    running->syscall_retvalue = desc->fd;
+
+
 
 }
