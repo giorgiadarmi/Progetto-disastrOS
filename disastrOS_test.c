@@ -11,9 +11,10 @@
 void producer() {
     char buf[256]; //dichiariamo buffer per messaggio
     printf("[PRODUCER pid = %d] Start!\n", disastrOS_getpid());
-    int mq_fd = disastrOS_msgQueueOpen("/mq"); //coda del messaggio
+    printf("[PRODUCER pid = %d] Allocazione del descrittore associato al message queue\n", disastrOS_getpid());
+    int mqdes = disastrOS_msgQueueOpen("/mq"); //coda del messaggio
 
-    printf("[PRODUCER pid = %d] Msg queue with fd = %d opened \n", disastrOS_getpid(), mq_fd);
+    printf("[PRODUCER pid = %d] Msg queue con fd = %d opened \n", disastrOS_getpid(), mqdes);
     disastrOS_printStatus();
     printf("[PRODUCER pid = %d] preempt(): CPU to CONSUMER \n\n", disastrOS_getpid()); 
     printf("[CONSUMER] Running!\n");disastrOS_preempt(); //processo successivo
@@ -27,7 +28,7 @@ void producer() {
         priority = rand() % 10; // imposta priorità casuale
         sprintf(buf, "Msg #%u", 1);
         printf("[PRODUCER pid = %d] Write msg: '%s', priority: %u\n",disastrOS_getpid(), buf, priority);
-        disastrOS_msgQueueWrite(mq_fd, buf, strlen(buf), priority); //scrive messaggio in coda 
+        disastrOS_msgQueueWrite(mqdes, buf, strlen(buf), priority); //scrive messaggio in coda 
         disastrOS_printStatus(); //stampa stato sistema
 
         memset(buf, 0, 256);
@@ -35,7 +36,7 @@ void producer() {
         priority = rand() % 10; // imposta priorità casuale
         sprintf(buf, "Msg #%u", 2);
         printf("[PRODUCER pid = %d] Write msg: '%s', priority: %u\n", disastrOS_getpid(), buf, priority);
-        disastrOS_msgQueueWrite(mq_fd, buf, strlen(buf), priority);
+        disastrOS_msgQueueWrite(mqdes, buf, strlen(buf), priority);
         disastrOS_printStatus();
 
         memset(buf, 0, 256);
@@ -43,7 +44,7 @@ void producer() {
         priority = rand() % 10; // imposta priorità casuale
         sprintf(buf, "Msg #%u", 3);
         printf("[PRODUCER pid = %d] Write msg: '%s', priority: %u\n", disastrOS_getpid(), buf, priority);
-        disastrOS_msgQueueWrite(mq_fd, buf, strlen(buf), priority);
+        disastrOS_msgQueueWrite(mqdes, buf, strlen(buf), priority);
         disastrOS_printStatus();
 
 
@@ -53,8 +54,8 @@ void producer() {
 
     }
 
-    disastrOS_msgQueueClose(mq_fd); //chiudiamo descrittore coda di messaggi
-    printf("[PRODUCER pid = %d] Msg queue (fd = %d) closed \n", disastrOS_getpid(), mq_fd);
+    disastrOS_msgQueueClose(mqdes); //chiudiamo descrittore coda di messaggi
+    printf("[PRODUCER pid = %d] Msg queue (fd = %d) closed \n", disastrOS_getpid(), mqdes);
     disastrOS_printStatus();
 
     printf("[PRODUCER pid = %d] exit(0)\n", disastrOS_getpid());
@@ -65,9 +66,9 @@ void producer() {
 void consumer() {
     char buf[256];
     printf("[CONSUMER pid = %d] Start!\n", disastrOS_getpid());
-
-    int mq_fd = disastrOS_msgQueueOpen("/mq");
-    printf("[CONSUMER pid = %d] Msg queue (fd = %d) opened \n", disastrOS_getpid(), mq_fd);
+    printf("[CONSUMER pid = %d] Allocazione del descrittore associato al message queue\n", disastrOS_getpid());
+    int mqdes = disastrOS_msgQueueOpen("/mq");
+    printf("[CONSUMER pid = %d] Msg queue (fd = %d) opened \n", disastrOS_getpid(), mqdes);
     disastrOS_printStatus();
     printf("[CONSUMER pid = %d] preempt: CPU to PRODUCER \n\n", disastrOS_getpid());
     printf("[PRODUCER] in running\n");
@@ -78,17 +79,17 @@ void consumer() {
 
         memset(buf, 0, 256);
         printf("[CONSUMER pid = %d] Reading first msg\n", disastrOS_getpid());
-        disastrOS_msgQueueRead(mq_fd, buf, 256); //legge messaggio dalla coda puntata dal descrittore mq_fd
+        disastrOS_msgQueueRead(mqdes, buf, 256); //legge messaggio dalla coda puntata dal descrittore mqdes
         disastrOS_printStatus();
 
         memset(buf, 0, 256);
         printf("[CONSUMER pid = %d] Readind second msg\n", disastrOS_getpid());
-        disastrOS_msgQueueRead(mq_fd, buf, 256);
+        disastrOS_msgQueueRead(mqdes, buf, 256);
         disastrOS_printStatus();
 
         memset(buf, 0, 256);
         printf("[CONSUMER pid = %d] Reading third msg\n", disastrOS_getpid());
-        disastrOS_msgQueueRead(mq_fd, buf, 256);
+        disastrOS_msgQueueRead(mqdes, buf, 256);
         disastrOS_printStatus();
 
         printf("[CONSUMER pid = %d] preempt(): CPU to PRODUCER\n", disastrOS_getpid());
@@ -96,8 +97,8 @@ void consumer() {
         disastrOS_preempt();
     }
 
-    printf("[CONSUMER pid = %d] Msg queue (fd = %d) closed\n", disastrOS_getpid(), mq_fd);
-    disastrOS_msgQueueClose(mq_fd);
+    printf("[CONSUMER pid = %d] Msg queue (fd = %d) closed\n", disastrOS_getpid(), mqdes);
+    disastrOS_msgQueueClose(mqdes);
     disastrOS_printStatus();
 
     printf("[CONSUMER pid = %d] exit(0)\n", disastrOS_getpid());
@@ -115,17 +116,17 @@ void childFunc(void *argsPtr) {
     printf("[childFunc pid = %d] Spawning producer \n", disastrOS_getpid());
     disastrOS_printStatus();
 
+	printf("[childFunc pid = %d] Allocata subqueue e msg queue created \n", disastrOS_getpid());
     disastrOS_msgQueueCreate("/mq");
-    printf("[childFunc pid = %d] Msg queue created \n", disastrOS_getpid());
     disastrOS_printStatus();
 
-    printf("[childFunc pid = %d] go to waiting list: waiting termination of child process\n", disastrOS_getpid());
+    printf("[childFunc pid = %d] Go to waiting list: waiting termination of child process\n", disastrOS_getpid());
 
     disastrOS_wait(0, NULL);  // attende terminazione di uno qualsiasi dei figli
     printf("[childFunc pid = %d] wait(0) -> read retvalue of terminated child\n", disastrOS_getpid());
     disastrOS_printStatus();
 
-    printf("[childFunc pid = %d] go to waiting list: Waiting termination of next child process\n", disastrOS_getpid());
+    printf("[childFunc pid = %d] Go to waiting list: Waiting termination of next child process\n", disastrOS_getpid());
 
     disastrOS_wait(0, NULL);
     printf("[childFunc pid = %d] wait(0) -> read retvalue of terminated child\n", disastrOS_getpid());
@@ -160,7 +161,15 @@ void initFunc(void *argsPtr) {
 
 int main(int argc, char** argv) {
     printf("\n************************** IPC with MESSAGE QUEUE ******************************\n\n");
-    printf("Start!\n");
-    disastrOS_start(initFunc, 0, NULL);
+    char* logfilename = 0;
+    if (argc > 1) {
+        logfilename = argv[1];
+    }
+    // we create the init process processes
+    // the first is in the running variable
+    // the others are in the ready queue
+    // spawn an init process
+    printf("Start! \n");
+    disastrOS_start(initFunc, 0, logfilename);
     return 0;
 }

@@ -178,7 +178,7 @@ Subqueue* Subqueue_alloc(unsigned priority) {
     m->list.prev = m->list.next = NULL;
     List_init(&(m->messages));              // da desastrOS_ List_init(&r->descriptors_ptrs);
     m->priority = priority;
-    printf(">> Messaggio subqueue %d allocato correttamente!\n", priority);
+    printf(">> Messaggio subqueue con priorità %d allocato correttamente!\n", priority);
     return m;
 }
 

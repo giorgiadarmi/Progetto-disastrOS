@@ -25,7 +25,6 @@ void internal_msgQueueOpen() {
     
     //creiamo descrittore per la risorsa allocata in questo processo e lo allochiamo
     Descriptor *desc = Descriptor_alloc(running->last_fd, (Resource*) mq, running);
-    printf("[msgQueueOpen --> DESCRITTORE ALLOCATO]");
     //errore in caso di file descriptor non valido
     if (!desc) {
         running->syscall_retvalue = DSOS_EMQ_NOFD;
@@ -35,7 +34,6 @@ void internal_msgQueueOpen() {
     running->last_fd++; //incrementiamo il valore dell'ultimo file descriptor
     //allochiamo il puntatore al descrittore 
     DescriptorPtr *descPtr = DescriptorPtr_alloc(desc);
-        printf("[msgQueueOpen -->  PUNTATORE AL DESCRITTORE ALLOCATO]");
     //aggiungere alla risorsa, nella lista dei descrittori, il descrittore appena creato
     List_insert(&running->descriptors, running->descriptors.last, (ListItem *) desc);
 
