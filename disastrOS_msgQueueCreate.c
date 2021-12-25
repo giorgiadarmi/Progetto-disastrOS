@@ -11,6 +11,7 @@
 void internal_msgQueueCreate() {
 	//input coda di messaggi da creare
     const char *name = (const char*)running->syscall_args[0];
+    int rid = last_rid++;
 
 	if (!name) {
         printf("[ERRORE] 'name' deve essere diverso da NULL!\n");
@@ -19,7 +20,7 @@ void internal_msgQueueCreate() {
     }
     
 	//allocazione subqueue e coda tramite pull alloctor
-    MsgQueue *mqdes = MsgQueue_alloc(name, last_rid++, running);
+    MsgQueue *mqdes = MsgQueue_alloc(name, rid, running);
     if(!mqdes){
         printf("[ERRORE] Non è possibile allocare una nuova coda di messaggio!\n");
         running->syscall_retvalue = DSOS_EMQ_CREATE;

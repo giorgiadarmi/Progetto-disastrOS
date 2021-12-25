@@ -41,8 +41,6 @@ void internal_msgQueueOpen() {
     desc->ptr = descPtr;
     List_insert(&(mq->resource.descriptors_ptrs), mq->resource.descriptors_ptrs.last, (ListItem *) descPtr);
 
-    disastrOS_debug("Message queue con nome '%s' aperto!\n", name);
-
     //ritorna il file descriptor associato al descrittore del processo
     running->syscall_retvalue = desc->fd;
 

@@ -25,19 +25,19 @@ void internal_msgQueueClose() {+
     }
 
 	//creiamo descrittore per la coda di messaggio 
-    MsgQueue *mqdesc = (MsgQueue*) desc->resource;
+    MsgQueue *mqdesc = (MsgQueue*)desc->resource;
 
 	//stacchiamo il descrittore (deallochiamo) e il suo puntatore dalla lista dei descrittori e lista dei puntatori
-    List_detach(&(mqdesc->resource.descriptors_ptrs), (ListItem *) descPtr);
-    List_detach(&(running->descriptors), (ListItem *) desc);
+    List_detach(&mqdesc->resource.descriptors_ptrs, (ListItem *) descPtr);
+    List_detach(&running->descriptors, (ListItem *) desc);
 	
     if (DescriptorPtr_free(descPtr) != 0) {
-        printf("[ERRORE] Fallimento nella deallocazione del puntatore al descrittore (fd = %d)!\n", fd);
+        disastrOS_debug("[ERRORE] Fallimento nella deallocazione del puntatore al descrittore (fd = %d)!\n", fd);
         running->syscall_retvalue = DSOS_EMQ_CLOSE;
         return;
     }
     if (Descriptor_free(desc) != 0) {
-        printf("[ERRORE] Fallimento nella deallocazione del descrittore con fd %d!\n", fd);
+        disastrOS_debug("[ERRORE] Fallimento nella deallocazione del descrittore con fd %d!\n", fd);
         running->syscall_retvalue = DSOS_EMQ_CLOSE;
         return;
     }
@@ -46,10 +46,11 @@ void internal_msgQueueClose() {+
 	//quindi tutti i pricessi che hanno aperto la coda chiudono i descrittori associati ad essa
 	//la coda verrà distrutta
     if (mqdesc->resource.descriptors_ptrs.size == 0) {
-        disastrOS_debug("Tutti i descrittori sono chiusi: msg queue (fd = %d) unlinked!\n", fd);
+        printf("Tutti i descrittori associati alla message queue sono chiusi, la coda è stata rimossa!\n\n");
 
         running->syscall_args[0] = (long) mqdesc->resource.name;
         internal_msgQueueUnlink();
+        printf("Message queue (fd = %d) closed e unlinked\n", fd);
         if (running->syscall_retvalue == DSOS_EMQ_CLOSE)
             return;
     }
