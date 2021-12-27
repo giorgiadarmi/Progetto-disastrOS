@@ -52,7 +52,7 @@ void internal_msgQueueWrite() {
     List_insert(&(msgSubqueue->messages), msgSubqueue->messages.last, (ListItem *) msg);
     ++(mq->size);
 
-    printf(">> Messaggio scritto!\n");
+    printf(">> Message '%s' written!\n", msg->msg_ptr);
     running->syscall_retvalue = msg_len;
 
 
