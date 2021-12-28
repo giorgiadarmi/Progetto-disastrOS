@@ -9,10 +9,10 @@
 
 void internal_openResource(){
   //1 get from the PCB the resource id of the resource to open
-  
-  int id=running->syscall_args[0];
-  int type=running->syscall_args[1];
-  int open_mode=running->syscall_args[2];
+  const char *name = (const char *) running->syscall_args[0];
+  int id=running->syscall_args[1];
+  int type=running->syscall_args[2];
+  int open_mode=running->syscall_args[3];
 
   Resource* res=ResourceList_byId(&resources_list, id);
   //2 if the resource is opened in CREATE mode, create the resource
@@ -25,11 +25,11 @@ void internal_openResource(){
       running->syscall_retvalue=DSOS_ERESOURCECREATE;
       return;
     }
-    res=Resource_alloc(id, type);
+    res=Resource_alloc(name, id, type);
     List_insert(&resources_list, resources_list.last, (ListItem*) res);
   }
 
-  // at this point we should have the resource, if not something was wrong
+  // a questo punto dovremmo avere la risorsa
   if (! res || res->type!=type) {
      running->syscall_retvalue=DSOS_ERESOURCEOPEN;
      return;

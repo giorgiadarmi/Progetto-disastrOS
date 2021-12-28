@@ -8,7 +8,7 @@
 #include "disastrOS_descriptor.h"
 
 
-void internal_msgQueueClose() {+
+void internal_msgQueueClose() {
 
 	//dichiariamo il file descriptor della coda di messaggi che si vuole chiudere 
     int fd = running->syscall_args[0];
