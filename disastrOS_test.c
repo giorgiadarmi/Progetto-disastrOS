@@ -133,8 +133,8 @@ void childFunc(void *argsPtr) {
     printf("[childFunc pid = %d] wait(0, NULL) -> legge valore di ritorno e attende la terminazione del processo figlio\n", disastrOS_getpid());
     disastrOS_printStatus();
 
-    printf("[childFunc pid = %d] Prova a rimuovere msg queue\n", disastrOS_getpid());
-    disastrOS_msgQueueUnlink("/mq");
+    //printf("[childFunc pid = %d] Prova a rimuovere msg queue\n", disastrOS_getpid());
+    //disastrOS_msgQueueUnlink("/mq");
 
     printf("[childFunc pid = %d] exit(0)\n", disastrOS_getpid());
     disastrOS_exit(0);

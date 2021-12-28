@@ -7,7 +7,7 @@
 
 //costanti messaggi
 #define MAX_TEXT_LEN                     255        //max lunghezza messaggio
-#define MAX_NUM_MESSAGES                1024
+#define MAX_NUM_MESSAGES                1024		// numero massimo di messaggi che si possono scrivere 
 #define MAX_NUM_MESSAGES_PER_MSG_QUEUE    1        // numero max messaggi per coda
 #define MAX_NUM_PRIORITIES                10       // numero di subqueue nella message queue
 
