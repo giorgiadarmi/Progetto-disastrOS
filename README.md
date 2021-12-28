@@ -29,8 +29,8 @@ Progetto Sistemi Operativi (2020/2021)
 - <del>mq_open() -- Si connette e facoltativamente crea una coda di messaggi denominata.</del>
 - <del>mq_close() -- Termina la connessione a una coda di messaggi aperta.</del>
 - <del>mq_unlink() -- Termina la connessione a una coda di messaggi aperta e provoca la rimozione della coda quando l'ultimo processo la chiude.</del>
-- mq_send() -- Mette un messaggio nella coda.
-- mq_receive() -- Riceve (rimuove) il messaggio più vecchio e con la priorità più alta dalla coda.
+- <del>mq_send() -- Mette un messaggio nella coda.</del>
+- <del>mq_receive() -- Riceve (rimuove) il messaggio più vecchio e con la priorità più alta dalla coda.</del>
 
 #### MODIFICHE FILE
 - <del>disastrOS.c per l'installazione nuove syscall</del>
