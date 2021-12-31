@@ -29,7 +29,7 @@ void internal_msgQueueCreate() {
     
     MsgQueuePtr *mqPtr = MsgQueuePtr_alloc(mqdes);
     if(!mqPtr){
-        printf("[ERRORE] Non è possibile allocare un puntatore alla coda di messaggio con nome!\n");
+        printf("[ERRORE] Non è possibile allocare un puntatore alla coda di messaggio con name!\n");
         running->syscall_retvalue = DSOS_EMQ_CREATE;
         return;
     }
