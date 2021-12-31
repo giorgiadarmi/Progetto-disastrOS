@@ -6,10 +6,10 @@ Progetto Sistemi Operativi (2020/2021)
 - **1711864**
 
 ## Message queues in disastrOS 
-# Implementazione di un sistema IPC basato sulle code di messaggi disastrOS per consentire e bloccare la comunicazione tra processi.
-# Il punto di partenza è la lezione presentata a lezione [qui](https://gitlab.com/grisetti/sistemi_operativi_2019_20/-/tree/master/source/08_disastrOS/disastrOS_04_resources) presente.
+### Implementazione di un sistema IPC basato sulle code di messaggi disastrOS per consentire e bloccare la comunicazione tra processi.
+### Il punto di partenza è la lezione presentata a lezione [qui](https://gitlab.com/grisetti/sistemi_operativi_2019_20/-/tree/master/source/08_disastrOS/disastrOS_04_resources) presente.
 
-#Abbiamo modificato la struttura di partenza nei seguenti modi: 
+#### Abbiamo modificato la struttura di partenza nei seguenti modi: 
 
 - Abbiamo aggiunto un campo 'name' alla struct Resource, come puntatore alla coda di messaggio e modifichiamo i file disastrOS_resource.c, disastrOS_resource.h e disastrOS_open_resource.c
 
