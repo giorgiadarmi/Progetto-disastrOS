@@ -16,7 +16,7 @@ typedef struct {
 
 void Resource_init();
 
-Resource* Resource_all(const char *name, int rid, int type);
+Resource* Resource_alloc(const char *name, int rid, int type);
 int Resource_free(Resource* resource);
 
 typedef ListHead ResourceList;
